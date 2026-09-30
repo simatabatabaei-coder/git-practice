@@ -1,5 +1,6 @@
 import yaml
 import pandas as pd
+import json
 
 # Read settings from the YAML configuration file
 with open("config.yml", "r") as file:
@@ -39,3 +40,16 @@ overdue_sensors = sensor_data[
 
 print(overdue_sensors) # Display sensors that are overdue for calibration
 
+
+# Select the columns needed for the JSON output
+overdue_data = overdue_sensors[
+    ["sensor_id", "lab_room", "owner", "days_since_calibration"]
+]
+
+# Convert the DataFrame to a list of dictionaries
+overdue_records = overdue_data.to_dict(orient="records")
+
+# Save the overdue sensors to the JSON file
+with open(output_file, "w") as file:
+    json.dump(overdue_records, file, indent=2)
+    
