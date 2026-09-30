@@ -32,3 +32,10 @@ sensor_data = pd.merge(
 
 print(sensor_data) # Display combined sensor and calibration information
 
+# Filter sensors that are overdue for calibration (those that have not been calibrated within the specified maximum number of days)
+overdue_sensors = sensor_data[
+    sensor_data["days_since_calibration"] > max_days
+]
+
+print(overdue_sensors) # Display sensors that are overdue for calibration
+
